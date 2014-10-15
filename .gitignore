@@ -4,3 +4,4 @@ target/*
 #files
 *.iml
 *.ibr
+*.log
