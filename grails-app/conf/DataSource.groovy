@@ -32,7 +32,7 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost:3306/linkSharingR`"
+            url = "jdbc:mysql://localhost:3306/linkSharing"
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true

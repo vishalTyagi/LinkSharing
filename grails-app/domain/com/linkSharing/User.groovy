@@ -6,20 +6,32 @@ class User {
     String email
     String firstName
     String userName
-    String LastName
+    String lastName
+    String passWord
     boolean active
     boolean admin
+
     java.util.Date dateCreated
     java.util.Date lastUpdated
-    static hasMany = [subscription:Subscription,topic:Topic,resourceRating:ResourceRating,resourceItems:ReadingItem]
+    static hasMany = [subscriptions:Subscription,topics:Topic,resourceRatings:ResourceRating,resourceItems:ReadingItem]
 
 
     static constraints = {
         email email: true,blank: false,unique: true,nullable: false
-
+        userName blank: false
+        passWord blank: false
     }
 
     static mapping = {
         table('people')
+    }
+
+    static void validateAndSave(User user){
+        user.validate()
+        if(user.hasErrors()){
+            println user.errors
+        }else{
+            user.save(flush: true)
+        }
     }
 }

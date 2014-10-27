@@ -9,7 +9,7 @@ class Topic {
     Date lastUpdated
 
     static belongsTo = [createdBy:User]
-    static hasMany = [resource:Resource, subscription:Subscription]
+    static hasMany = [resources:Resource, subscriptions:Subscription]
 
     static constraints = {
     }
