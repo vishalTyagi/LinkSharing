@@ -12,7 +12,7 @@ class LoginController {
     def checkLogin(){
         User user = User.findByUserName(params.username)
         if(user){
-            if (user.passWord.equals(params.password)) {
+            if (user.password.equals(params.password)) {
                 redirect controller: 'user', action: 'loginHandler',params: [user: user.id]
             }else{
                 render "Wrong Password !!!"
@@ -20,6 +20,14 @@ class LoginController {
         }
         else
             render "Wrong Username !!!"
+    }
+
+    def showHome(){
+        if(session.user){
+            render view: '/home/dashBoard'
+        }else{
+            render view: '/home/home'
+        }
     }
 
     def logout(){

@@ -10,10 +10,13 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../bootstrap-3.2.0-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="../css/style.css">
+%{--    <link rel="stylesheet" href="../css/style.css">--}%
+    <asset:stylesheet src="style.css" />
+    <asset:stylesheet src="bootstrap.css" />
     <g:layoutHead/>
 </head>
 <body>
+<ls:header/>
 <g:layoutBody/>
 </body>
 </html>

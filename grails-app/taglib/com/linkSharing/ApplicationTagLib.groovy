@@ -30,4 +30,9 @@ class ApplicationTagLib {
     def header = {attrs ->
         out << g.render(template: "/login/headerTemplate")
     }
+
+    def image = {attrs ->
+
+        out << g.link([action:'showUser',controller:'user'],'<img src="../images/blankuser.png" heigth="100" width="100">')
+    }
 }

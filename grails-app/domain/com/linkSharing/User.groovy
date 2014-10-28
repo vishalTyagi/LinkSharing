@@ -7,7 +7,7 @@ class User {
     String firstName
     String userName
     String lastName
-    String passWord
+    String password
     boolean active
     boolean admin
 
@@ -18,8 +18,8 @@ class User {
 
     static constraints = {
         email email: true,blank: false,unique: true,nullable: false
-        userName blank: false
-        passWord blank: false
+        userName blank: false, unique: true
+        password blank: false
     }
 
     static mapping = {

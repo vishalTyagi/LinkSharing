@@ -10,6 +10,14 @@ class TopicController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def showTopic(){
+        render view: '/topic/topic'
+    }
+
+
+
+    //-----------------------------------------------------------------------------------------------
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Topic.list(params), model:[topicInstanceCount: Topic.count()]

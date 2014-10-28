@@ -18,7 +18,6 @@
 </head>
 
 <body>
-<ls:header/>
 <div class="container container-unit">
 <div class="float-left">
     <div id="topic" class="content-unit">

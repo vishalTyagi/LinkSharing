@@ -1,10 +1,10 @@
 <div id ="header" class = "container">
     <div class="col-md-6">
-        <div>
+        <div style="margin-top: 13px;">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Link Sharing</span>
             </button>
-            <a class="navbar-brand" href="#">Link Sharing</a>
+            <g:link url="[action:'showHome',controller:'login']">Link Sharing</g:link>
         </div>
     </div>
     <div class="col-md-5 ">
@@ -18,7 +18,7 @@
         <ul id="drop-nav">
             <li><a href="#">User</a>
                 <ul>
-                    <li><a href="#">Profile</a></li>
+                    <li><g:link url="[action: 'editProfile',controller: 'user']">Profile</g:link></li>
                     <li><g:link name="signout" controller="login" action="logout">logout</g:link></li>
                 </ul>
             </li>

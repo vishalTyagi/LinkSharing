@@ -1,7 +1,7 @@
 package com.linkSharing
 
 
-abstract class Resource {
+ class Resource {
     String description
     Date dateCreated
     Date lastUpdated

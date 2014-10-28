@@ -26,7 +26,7 @@ class BootStrap {
     }
 
     def createUser(firstName,lastName,email,active,admin){
-        User user = new User(email:email,firstName: firstName,lastName: lastName,userName: firstName,passWord: lastName,active: active,admin: admin)
+        User user = new User(email:email,firstName: firstName,lastName: lastName,userName: firstName,password: lastName,active: active,admin: admin)
         user
     }
     def createTopic(name,visibility){

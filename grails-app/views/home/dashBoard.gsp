@@ -20,21 +20,42 @@
         height: 110px;
         border-radius: 10px;
     }
+    .form-element{
+        margin-left: 70px;
+    }
+    .form-element label {
+        display: inline-block;
+        width: 150px;
+    }
+    .form-element input{
+        width:200px;
+    }
     </style>
 </head>
 
 <body>
-<ls:header/>
 <div class="container container-unit">
     <div class="float-left">
         <div id="name" class="content-unit">
-            <div>
-                <div class="col-md-4">
-                    <a href="#"> <img src="../images/blankuser.png" heigth="100" width="100"></a>
+            <div class="row">
+                <div class="col-md-3">
+                       <ls:image/>
                 </div>
+
                 <div class="col-md-8">
-                    <span>${session.user}Vishal Kumar</span><br>
-                    <span>subscription  topics</span>
+                    <div style="margin-top: 12px;"><strong>${session.user}Vishal Kumar</strong><br>
+                        <span>@vishal</span>
+                    </div>
+
+                    <div style="margin-top: 14px;">
+                        <div class="float-left">subscription <br>
+                            20
+                        </div>
+
+                        <div class="float-right">TOpics<br> 50</div>
+
+                        <div class="clear-both"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,10 +63,36 @@
         <div class="content-unit send_invite">
             <div class="div-header">
                 <label style="margin-top: 4px;margin-left:10px;">subscription</label>
+                <label style="margin-top: 4px;margin-left: 435px"><a href="#">View All</a></label>
             </div><br>
 
-            <div style="overflow: auto">
-                topic info. are shown
+            <div>
+                <div>
+                    <div class="col-md-2">
+                        <a href="#"><img src="../images/blankuser.png" width="100px" height="80px"></a>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div>
+                            <g:form name="create">
+                                <g:textField style="width:250px" name="topicName"/>&nbsp;<g:submitButton name="Save"/>
+                            </g:form>
+                        </div>
+
+                        <div>
+                            @vishal SUbscripetion topics
+                        </div>
+                        <div>
+                            <g:form name="subscription">
+                                <dl class="dl-horizontal">
+                                <dt><g:select name="seriousness" from="${com.linkSharing.Subscription.seriousness.values()}" value="${subscription}"/></dt>
+                                <dd><g:select name="visiblity" from="${com.linkSharing.Topic.visibility.values()}" value="${topics}"/></dd>
+                                <dt><i>m</i><i>E</i><i>del</i></dt>
+                                </dl>
+                            </g:form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -64,13 +111,13 @@
                 <label style="margin-top: 4px;margin-left:10px;">Send invitation</label>
             </div><br>
 
-            <div style="overflow: auto">
-                <g:form >
-                    <ul class="ul-class">
-                        <li>Email* : <g:textField name="email"/></li><br>
-                        <li>Topic* : <g:select name="topics" from="topicList"/></li><br>
-                        <li><g:submitButton name="Invite"/></li>
-                    </ul>
+            <div>
+                <g:form name="sendInvitation" controller="user" action="sendMail" method="post">
+                    <dl class="dl-horizontal">
+                       <dt>Email* : </dt> <dd><g:textField name="email"/></dd><br>
+                        <dt>Topic* : </dt> <dd><g:select name="topics" from="${com.linkSharing.Topic.list()?.name}" value="topics"/></dd><br>
+                        <dt> </dt><dd><g:submitButton name="Invite"/></dd>
+                    </dl>
                 </g:form>
             </div>
         </div>
@@ -80,13 +127,16 @@
                 <label style="margin-top: 4px;margin-left:10px;">Create Topics</label>
             </div><br>
 
-            <div style="overflow: auto">
-                <g:form >
-                    <ul class="ul-class">
-                        <li>Name* : <g:textField name="topicName"/></li><br>
-                        <li>Visibility* : <g:select name="visibility" from="list"/></li><br>
-                        <li><g:submitButton name="Save"/></li>
-                    </ul>
+            <div>
+                <g:form>
+                    <dl class="dl-horizontal">
+                        <dt>Name*</dt>
+                        <dd><g:textField name="topicName" /></dd><br/>
+                        <dt>Visibility*</dt>
+                        <dd><g:select name="visibility" from="${com.linkSharing.Topic.visibility.values()}" value="${topics}"/></dd><br/>
+                        <dt></dt>
+                        <dd><g:submitButton name="Save" /></dd>
+                    </dl>
                 </g:form>
             </div>
         </div>
@@ -98,7 +148,7 @@
                 <label style="margin-top: 4px;margin-left:10px;">Inbox</label>
             </div><br>
 
-            <div style="overflow: auto">
+            <div>
                 topic info. are shown
             </div>
         </div>
@@ -108,14 +158,14 @@
                 <label style="margin-top: 4px;margin-left:10px;">Share Link</label>
             </div><br>
 
-            <div style="overflow: auto">
+            <div>
                 <g:uploadForm action="upload" method="post">
-                    <ul class="ul-class">
-                        <li>Link* : <g:textField name="url"/></li><br>
-                        <li>Description* : <g:textArea name="description"/></li><br>
-                        <li>Topic : <g:select name="topics" from="topicList"/></li><br>
-                        <li><g:submitButton name="Share"/></li>
-                    </ul>
+                    <dl class="dl-horizontal">
+                        <dt>Link* : </dt> <dd><g:textField name="url"/></dd><br>
+                        <dt>Description* : </dt> <dd><g:textArea name="description"/></dd><br>
+                        <dt>Topic : </dt> <dd><g:select name="topics" from="${com.linkSharing.Topic.list()?.name}" value="${topics}"/></dd><br>
+                        <dt> </dt> <dd><g:submitButton name="Share"/></dd>
+                    </dl>
                 </g:uploadForm>
             </div>
         </div>
@@ -127,17 +177,18 @@
 
             <div style="overflow: auto">
                 <g:uploadForm action="upload" method="post">
-                    <ul class="ul-class">
-                        <li><input type="file" name="myFile" /></li><br>
-                        <li>Description* : <g:textArea name="description"/></li><br>
-                        <li>Topic : <g:select name="topics" from="topicList"/></li><br>
-                        <li><g:submitButton name="Share"/></li>
-                    </ul>
+                    <dl class="dl-horizontal">
+                        <dt>Document* : </dt> <dd><input type="file" name="myFile"/></dd><br>
+                        <dt>Description* : </dt> <dd><g:textArea name="description"/></dd><br>
+                        <dt>Topic : </dt> <dd><g:select name="topics" from="${com.linkSharing.Topic.list()?.name}" value="${topics}"/></dd><br>
+                        <dt> </dt> <dd><g:submitButton name="Share"/></dd>
+                    </dl>
                 </g:uploadForm>
             </div>
         </div>
     </div>
-    <div class="clear-both"> </div>
+
+    <div class="clear-both"></div>
 </div>
 </body>
 </html>

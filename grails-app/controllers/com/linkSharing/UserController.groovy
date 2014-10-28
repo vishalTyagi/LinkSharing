@@ -1,13 +1,15 @@
 package com.linkSharing
 
+import grails.validation.Validateable
 import org.codehaus.groovy.grails.validation.EmailConstraint
+import groovy.*
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+
 class UserController {
-    def asynchronousMailService
+    def userService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -28,23 +30,20 @@ class UserController {
         redirect controller: 'home', action: 'dashBoard'
     }
 
-    def register(){
-        User user = new User(params)
-        User.validateAndSave(user)
-        render "User registered !!!! ${user.userName}"
+    def register(UserCO user){
+        userService.regidterUser(user)
+    }
+
+    def showUser(){
+        render view: 'user'
+    }
+    def editProfile(){
+        render view: 'editProfile'
     }
     //-------------------------------------------------------
 
-    def sendMail(String email){
-        println ">>>>>>>>mail id is ${email}"
-        asynchronousMailService.sendMail{
-            to email
-            subject "demo mail...."
-            body "Pfa"
-           // html g.render(template: "/login/headerTemplate")
-        }
-        println ">>>>>>>>mail id is ${email}"
-        render "Mail sent !!!!!"
+    def sendMail(String email,String topics){
+        userService.sendMail(email,topics);
     }
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -124,6 +123,26 @@ class UserController {
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
+        }
+    }
+}
+@Validateable
+class UserCO {
+    String email
+    String firstName
+    String userName
+    String lastName
+    String password
+    String confirmPassword
+
+    static constraints = {
+        email email: true,blank: false,unique: true,nullable: false
+        userName blank: false, unique: true
+        password validator: { val, obj ->
+            if(val?.equals(obj.confirmPassword)) {
+            }
+            else
+                return false
         }
     }
 }
