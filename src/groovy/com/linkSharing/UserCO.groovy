@@ -1,3 +1,5 @@
+package com.linkSharing
+
 import grails.validation.Validateable
 
 @Validateable
@@ -8,6 +10,7 @@ class UserCO {
     String lastName
     String password
     String confirmPassword
+    String imagePath
 
     static constraints = {
         email email: true,blank: false,unique: true,nullable: false

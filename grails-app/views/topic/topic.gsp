@@ -22,7 +22,7 @@
 <div class="float-left">
     <div id="topic" class="content-unit">
         <div class="div-header">
-            <label style="margin-top: 4px;margin-left:10px;">Topic : {TopicName}</label>
+            <label style="margin-top: 4px;margin-left:10px;">Topic : ${topic.name}</label>
         </div><br>
         <div style="overflow: auto">
             topic info. are shown
@@ -30,7 +30,7 @@
     </div>
     <div id="user" class="content-unit">
         <div class="div-header">
-            <label style="margin-top: 4px;margin-left:10px;">Users : {TopicName}</label>
+            <label style="margin-top: 4px;margin-left:10px;">Users : ${topic.createdBy?.firstName}</label>
         </div><br>
         <div style="overflow: auto">
             info of user on that topic
@@ -40,7 +40,7 @@
 <div class="float-right">
     <div id="posts" class="content-unit">
         <div class="div-header">
-            <label style="margin-top: 4px;margin-left:10px;">Posts : {TopicName}</label>
+            <label style="margin-top: 4px;margin-left:10px;">Posts : ${topic.name}</label>
         </div><br>
         <div style="overflow: auto">
             Post related to topic by users

@@ -1,21 +1,28 @@
 import com.linkSharing.DocumentResource
 import com.linkSharing.LinkResource
+import com.linkSharing.ReadingItem
 import com.linkSharing.Resource
 import com.linkSharing.Subscription
 import com.linkSharing.Topic
 import com.linkSharing.User
 
 class BootStrap {
-
+    def topicService
     def init = { servletContext ->
         User user = createUser("vishal","kumar","v@abc.com",true,true)
         int i = 1
         5.times{
             Topic topic = createTopic("Grails"+i,"public")
-            Subscription subscription = subscription("Serious")
+            Subscription subscription = subscription(topicService.getSeriousNessForSelfCreatedTopic())
             topic.addToSubscriptions(subscription)
-            createResource("http://www.google.com",null, "demo link doc",user,topic)
-            createResource(null,"/media/intelligrape/Data1","demo doc Resource",user,topic)
+            Resource resource1 = createResource(null,"./home/user","Hello this is not a correct resource it is a demo.",user)
+            Resource resource2 = createResource("https://www.facebook.com",null,"this is the link resource demo",user)
+            topic.addToResources(resource1)
+            topic.addToResources(resource2)
+            ReadingItem item = createReadingItems(user)
+            ReadingItem item1 = createReadingItems(user)
+            resource1.addToReadItems(item)
+            resource2.addToReadItems(item1)
             user.addToTopics(topic)
             user.addToSubscriptions(subscription)
             i++
@@ -37,17 +44,18 @@ class BootStrap {
         Subscription subscription = new Subscription(seriousness:seriousness)
         subscription
     }
-    void createResource(url,path,description,user,topic){
+    def createResource(String url,String path,String description,User user){
         Resource resource = null
         if(url){
-            5.times {
-                resource = new LinkResource(description: description, url: url,createdBy: user,topic: topic)
-            }
+                resource = new LinkResource(description: description, url: url,createdBy: user)
         }
         if(path){
-            5.times {
-                resource = new DocumentResource(description: description, filePath: path, createdBy: user,topic: topic)
-            }
+                resource = new DocumentResource(description: description, filePath: path, createdBy: user)
         }
+        return resource
+    }
+    def createReadingItems(User user){
+        ReadingItem item = new ReadingItem(isRead: false,user: user)
+        return item
     }
 }

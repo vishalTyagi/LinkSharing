@@ -3,17 +3,12 @@ package com.linkSharing
 class LoginController {
 
     def index() {
-        println '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-        println params.userName
-        println params.passWord
-        println '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-        render "User login successfully..."
     }
     def checkLogin(){
         User user = User.findByUserName(params.username)
         if(user){
             if (user.password.equals(params.password)) {
-                redirect controller: 'user', action: 'loginHandler',params: [user: user.id]
+                redirect controller: 'user', action: 'loginHandler',params: [userId: user.id]
             }else{
                 render "Wrong Password !!!"
             }

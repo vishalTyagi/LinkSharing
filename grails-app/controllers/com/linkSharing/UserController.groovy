@@ -26,12 +26,21 @@ class UserController {
     }
 //---------------------------------------------------------------------------------------------------------------------
     def loginHandler(){
-        session.user = params.user
+        session.user = params.userId
         redirect controller: 'home', action: 'dashBoard'
     }
 
     def register(UserCO user){
-        userService.regidterUser(user)
+        def usr = userService.registerUser(user)
+        if(usr) {
+            println 'inside if>>>>>>>>>>>>>>>>>>'+usr.id
+            session.user = usr.id
+            render view: '/home/dashBoard'
+        }
+        else {
+            println 'inside else>>>>>>>>>>>>>>>>>>>>>>'
+            render usr
+        }
     }
 
     def showUser(){
@@ -123,26 +132,6 @@ class UserController {
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
-        }
-    }
-}
-@Validateable
-class UserCO {
-    String email
-    String firstName
-    String userName
-    String lastName
-    String password
-    String confirmPassword
-
-    static constraints = {
-        email email: true,blank: false,unique: true,nullable: false
-        userName blank: false, unique: true
-        password validator: { val, obj ->
-            if(val?.equals(obj.confirmPassword)) {
-            }
-            else
-                return false
         }
     }
 }

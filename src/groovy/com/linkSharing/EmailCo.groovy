@@ -1,8 +1,7 @@
+package com.linkSharing
+
 import grails.validation.Validateable
 
-/**
- * Created by intelligrape on 22/10/14.
- */
 @Validateable
 class EmailCo {
     String email

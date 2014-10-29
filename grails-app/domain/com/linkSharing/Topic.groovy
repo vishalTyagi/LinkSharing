@@ -1,7 +1,5 @@
 package com.linkSharing
 
-import spock.util.mop.Use
-
 class Topic {
     String name
     enum visibility{Public,Private}
@@ -12,6 +10,7 @@ class Topic {
     static hasMany = [resources:Resource, subscriptions:Subscription]
 
     static constraints = {
+        name unique: true
     }
 }
 

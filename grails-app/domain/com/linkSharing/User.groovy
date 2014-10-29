@@ -1,7 +1,5 @@
 package com.linkSharing
 
-import org.apache.tools.ant.types.resources.comparators.Date
-
 class User {
     String email
     String firstName
@@ -10,6 +8,7 @@ class User {
     String password
     boolean active
     boolean admin
+    String imagePath
 
     java.util.Date dateCreated
     java.util.Date lastUpdated
@@ -20,6 +19,7 @@ class User {
         email email: true,blank: false,unique: true,nullable: false
         userName blank: false, unique: true
         password blank: false
+        imagePath nullable: true
     }
 
     static mapping = {

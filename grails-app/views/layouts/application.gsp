@@ -9,10 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <link rel="stylesheet" href="../bootstrap-3.2.0-dist/css/bootstrap.css">
-%{--    <link rel="stylesheet" href="../css/style.css">--}%
-    <asset:stylesheet src="style.css" />
-    <asset:stylesheet src="bootstrap.css" />
+    <link rel="stylesheet" href="${resource(dir: 'bootstrap-3.2.0-dist/css',file: 'bootstrap.css')}"/>
+    <link rel="stylesheet" href="${resource(dir: 'css',file: 'style.css')}"/>
+
+
     <g:layoutHead/>
 </head>
 <body>

@@ -1,19 +1,25 @@
 package com.linkSharing
 
-
+import grails.validation.Validateable
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+@Transactional
 class TopicController {
 
+    def topicService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def showTopic(){
         render view: '/topic/topic'
     }
 
+    def createTopic(TopicCo topicCo){
+        UserCO userCO= new UserCO()
+        def obj = topicService.createTopic(topicCo,session.user)
+        render view: 'topic', model: [topic:obj]
+    }
 
 
     //-----------------------------------------------------------------------------------------------
@@ -77,7 +83,6 @@ class TopicController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Topic.label', default: 'Topic'), topicInstance.id])
                 redirect topicInstance
             }
-            '*'{ respond topicInstance, [status: OK] }
         }
     }
 
@@ -111,4 +116,13 @@ class TopicController {
     }
 
 
+}
+@Validateable
+class TopicCo{
+    String name
+    enum visibility{Public,Private}
+
+    static constraints = {
+        name unique: true
+    }
 }

@@ -9,26 +9,11 @@
     }
 
     #inbox {
-        height: 150px;
+        height: 327px;
     }
 
     .resource {
         height: 250px;
-    }
-
-    #name {
-        height: 110px;
-        border-radius: 10px;
-    }
-    .form-element{
-        margin-left: 70px;
-    }
-    .form-element label {
-        display: inline-block;
-        width: 150px;
-    }
-    .form-element input{
-        width:200px;
     }
     </style>
 </head>
@@ -36,30 +21,7 @@
 <body>
 <div class="container container-unit">
     <div class="float-left">
-        <div id="name" class="content-unit">
-            <div class="row">
-                <div class="col-md-3">
-                       <ls:image/>
-                </div>
-
-                <div class="col-md-8">
-                    <div style="margin-top: 12px;"><strong>${session.user}Vishal Kumar</strong><br>
-                        <span>@vishal</span>
-                    </div>
-
-                    <div style="margin-top: 14px;">
-                        <div class="float-left">subscription <br>
-                            20
-                        </div>
-
-                        <div class="float-right">TOpics<br> 50</div>
-
-                        <div class="clear-both"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <ls:userInfo/>
         <div class="content-unit send_invite">
             <div class="div-header">
                 <label style="margin-top: 4px;margin-left:10px;">subscription</label>
@@ -85,7 +47,7 @@
                         <div>
                             <g:form name="subscription">
                                 <dl class="dl-horizontal">
-                                <dt><g:select name="seriousness" from="${com.linkSharing.Subscription.seriousness.values()}" value="${subscription}"/></dt>
+                                <dt><g:select name="seriousness" from="${com.linkSharing.SeriousNess.values()}" value="${subscription}"/></dt>
                                 <dd><g:select name="visiblity" from="${com.linkSharing.Topic.visibility.values()}" value="${topics}"/></dd>
                                 <dt><i>m</i><i>E</i><i>del</i></dt>
                                 </dl>
@@ -128,10 +90,10 @@
             </div><br>
 
             <div>
-                <g:form>
+                <g:form name="createTopic" controller="topic" action="createTopic">
                     <dl class="dl-horizontal">
                         <dt>Name*</dt>
-                        <dd><g:textField name="topicName" /></dd><br/>
+                        <dd><g:textField name="name" id="t"/></dd><br/>
                         <dt>Visibility*</dt>
                         <dd><g:select name="visibility" from="${com.linkSharing.Topic.visibility.values()}" value="${topics}"/></dd><br/>
                         <dt></dt>
@@ -146,10 +108,10 @@
         <div id="inbox" class="content-unit">
             <div class="div-header">
                 <label style="margin-top: 4px;margin-left:10px;">Inbox</label>
-            </div><br>
+            </div>
 
-            <div>
-                topic info. are shown
+            <div style="overflow-y: auto;overflow-x: hidden;max-height: 90%">
+                <ls:showInbox/>
             </div>
         </div>
 
@@ -159,14 +121,14 @@
             </div><br>
 
             <div>
-                <g:uploadForm action="upload" method="post">
+                <g:form name="shareLink" controller="linkResource" action="createLinkResource">
                     <dl class="dl-horizontal">
                         <dt>Link* : </dt> <dd><g:textField name="url"/></dd><br>
                         <dt>Description* : </dt> <dd><g:textArea name="description"/></dd><br>
-                        <dt>Topic : </dt> <dd><g:select name="topics" from="${com.linkSharing.Topic.list()?.name}" value="${topics}"/></dd><br>
+                        <dt>Topic : </dt> <dd><g:select name="topics" from="${com.linkSharing.Topic.list()?.name}" value="${topic}"/></dd><br>
                         <dt> </dt> <dd><g:submitButton name="Share"/></dd>
                     </dl>
-                </g:uploadForm>
+                </g:form>
             </div>
         </div>
 
