@@ -7,28 +7,29 @@ import grails.transaction.Transactional
 @Transactional
 class TopicService {
 
-    def createTopic(TopicCo topicCo,String id){
+    def createTopic(TopicCo topicCo,Long id){
         User user = User.get(id)
         Topic topic = new Topic()
         if(topicCo.validate()) {
-            println "....................>>> inside if"
             topic.properties = topicCo.properties
             topic.createdBy = user
             createSubscription(user, topic, getSeriousNessForSelfCreatedTopic())
-            topic.save(flush: true)
+            return  topic.save(flush: true)
         }else{
-            println "?>>>>>>>>>>>>>>>>>>inside else"
              println topicCo.errors
         }
         return topic
     }
 
-    def createSubscription(User user,Topic topic,SeriousNess seriousness){
+    Subscription createSubscription(User user,Topic topic,SeriousNess seriousness){
         Subscription subscription = new Subscription(topic: topic,user: user,seriousness:seriousness)
         return subscription
     }
 
     SeriousNess getSeriousNessForSelfCreatedTopic(){
         SeriousNess.SERIOUS
+    }
+    Visibility getVisibility(){
+        Visibility.PUBLIC
     }
 }

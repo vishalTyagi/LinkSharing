@@ -26,7 +26,7 @@ class UserController {
     }
 //---------------------------------------------------------------------------------------------------------------------
     def loginHandler(){
-        session.user = params.userId
+        session.user = Long.valueOf(params.userId)
         redirect controller: 'home', action: 'dashBoard'
     }
 

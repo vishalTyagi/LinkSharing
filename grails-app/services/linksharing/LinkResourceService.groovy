@@ -10,29 +10,32 @@ class LinkResourceService {
 
     }
 
-    def createLinkResource(LinkResourceCO linkResourceCO,String topicName,String userId){
+    LinkResource createLinkResource(LinkResourceCO linkResourceCO,String topicName,Long userId){
+        println topicName
         Topic topic = Topic.findByName(topicName)
+        println "${topic}_______________________________________________"
         User user = User.get(userId)
-        Resource linkResource = new LinkResource()
+        LinkResource linkResource = new LinkResource()
         if(linkResourceCO.validate()){
-            linkResource.properties = linkResourceCO.properties
+            linkResource.url = linkResourceCO.url
+            linkResource.description = linkResourceCO.description
             linkResource.createdBy = user
             linkResource.topic = topic
             linkResource.addToReadItems(createReadingItem(false,user))
             linkResource.addToResourceRatings(createResourceRating(0,user))
             println "inside if >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-            linkResource.save(flush: true)
+            return linkResource.save(flush: true,failOnError: true)
         }else{
             println linkResourceCO.errors
         }
         return linkResource
     }
 
-    def createResourceRating(int score,User user){
+    ResourceRating createResourceRating(int score,User user){
         ResourceRating rating = new ResourceRating(score: score,user: user)
         return rating
     }
-    def createReadingItem(boolean isRead, User user){
+    ReadingItem createReadingItem(boolean isRead, User user){
         ReadingItem item = new ReadingItem(isRead: isRead, user: user)
         return item
     }

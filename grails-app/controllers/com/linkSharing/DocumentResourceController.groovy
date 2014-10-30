@@ -5,15 +5,29 @@ package com.linkSharing
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+@Transactional
 class DocumentResourceController {
 
+    def documentResourceService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond DocumentResource.list(params), model:[documentResourceInstanceCount: DocumentResource.count()]
     }
+
+
+    def createDocument(DocumentResourceCO resourceCO,String topics){
+        DocumentResource resource = documentResourceService.createDocumentResource(resourceCO,topics,session.user)
+        if(resource){
+            render 'Created'
+        }else{
+            render "fail"
+        }
+//        render "printed"
+    }
+
+
 
     def show(DocumentResource documentResourceInstance) {
         respond documentResourceInstance

@@ -15,6 +15,18 @@ class ApplicationTagLib {
             out << g.render(template: '/readingItem/inboxTemplate',model: [resource:resource,name:name])
         }
      }
+
+    def trendingTopics = {attrs ->
+        List<Topic> list = Topic.list()
+        User user = User.get(session.user)
+        list.each{
+            if(it.createdBy.id == user.id){
+                out << g.render(template: '/login/trendingTopicEdit')
+            }else {
+                out << g.render(template: '/login/trendingTopics')
+            }
+        }
+    }
     def userInfo = {attrs ->
         User user = User.get(session.user)
         String name = "${user.firstName} ${user.lastName}"

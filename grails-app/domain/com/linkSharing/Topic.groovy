@@ -2,7 +2,7 @@ package com.linkSharing
 
 class Topic {
     String name
-    enum visibility{Public,Private}
+    Visibility visibility
     Date dateCreated
     Date lastUpdated
 

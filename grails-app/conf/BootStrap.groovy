@@ -12,7 +12,7 @@ class BootStrap {
         User user = createUser("vishal","kumar","v@abc.com",true,true)
         int i = 1
         5.times{
-            Topic topic = createTopic("Grails"+i,"public")
+            Topic topic = createTopic("Grails"+i,topicService.getVisibility())
             Subscription subscription = subscription(topicService.getSeriousNessForSelfCreatedTopic())
             topic.addToSubscriptions(subscription)
             Resource resource1 = createResource(null,"./home/user","Hello this is not a correct resource it is a demo.",user)
@@ -32,19 +32,19 @@ class BootStrap {
     def destroy = {
     }
 
-    def createUser(firstName,lastName,email,active,admin){
+    User createUser(firstName,lastName,email,active,admin){
         User user = new User(email:email,firstName: firstName,lastName: lastName,userName: firstName,password: lastName,active: active,admin: admin)
-        user
+        return user
     }
-    def createTopic(name,visibility){
+    Topic createTopic(name,visibility){
         Topic topic = new Topic(name:name,visibility:visibility)
-        topic
+        return topic
     }
-    def subscription(seriousness){
+    Subscription subscription(seriousness){
         Subscription subscription = new Subscription(seriousness:seriousness)
-        subscription
+        return subscription
     }
-    def createResource(String url,String path,String description,User user){
+    Resource createResource(String url,String path,String description,User user){
         Resource resource = null
         if(url){
                 resource = new LinkResource(description: description, url: url,createdBy: user)
@@ -54,7 +54,7 @@ class BootStrap {
         }
         return resource
     }
-    def createReadingItems(User user){
+    ReadingItem createReadingItems(User user){
         ReadingItem item = new ReadingItem(isRead: false,user: user)
         return item
     }

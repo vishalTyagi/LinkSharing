@@ -48,7 +48,7 @@
                             <g:form name="subscription">
                                 <dl class="dl-horizontal">
                                 <dt><g:select name="seriousness" from="${com.linkSharing.SeriousNess.values()}" value="${subscription}"/></dt>
-                                <dd><g:select name="visiblity" from="${com.linkSharing.Topic.visibility.values()}" value="${topics}"/></dd>
+                                <dd><g:select name="visiblity" from="${com.linkSharing.Visibility.values()}" value="${topics}"/></dd>
                                 <dt><i>m</i><i>E</i><i>del</i></dt>
                                 </dl>
                             </g:form>
@@ -61,10 +61,10 @@
         <div class="content-unit resource">
             <div class="div-header">
                 <label style="margin-top: 4px;margin-left:10px;">Trending Topics</label>
-            </div><br>
+            </div>
 
-            <div style="overflow: auto">
-                topic info. are shown
+            <div style="overflow-y: auto;overflow-x: hidden;max-height: 88%">
+                <ls:trendingTopics/>
             </div>
         </div>
 
@@ -95,7 +95,7 @@
                         <dt>Name*</dt>
                         <dd><g:textField name="name" id="t"/></dd><br/>
                         <dt>Visibility*</dt>
-                        <dd><g:select name="visibility" from="${com.linkSharing.Topic.visibility.values()}" value="${topics}"/></dd><br/>
+                        <dd><g:select name="visibility" from="${com.linkSharing.Visibility.values()}" value="${topics}"/></dd><br/>
                         <dt></dt>
                         <dd><g:submitButton name="Save" /></dd>
                     </dl>
@@ -138,14 +138,14 @@
             </div><br>
 
             <div style="overflow: auto">
-                <g:uploadForm action="upload" method="post">
+                <g:form name="shareDoc" controller="documentResource" action="createDocument" enctype="multipart/form-data">
                     <dl class="dl-horizontal">
                         <dt>Document* : </dt> <dd><input type="file" name="myFile"/></dd><br>
                         <dt>Description* : </dt> <dd><g:textArea name="description"/></dd><br>
-                        <dt>Topic : </dt> <dd><g:select name="topics" from="${com.linkSharing.Topic.list()?.name}" value="${topics}"/></dd><br>
+                        <dt>Topic : </dt> <dd><g:select name="topics" from="${com.linkSharing.Topic.list()?.name}" value="${topic}"/></dd><br>
                         <dt> </dt> <dd><g:submitButton name="Share"/></dd>
                     </dl>
-                </g:uploadForm>
+                </g:form>
             </div>
         </div>
     </div>

@@ -12,12 +12,18 @@ class TopicController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def showTopic(){
-        render view: '/topic/topic'
+        println "${params}----------------------------------------------------------"
+        Topic topic = Topic.get(params.topicId)
+        println ("showTopic: ${topic}")
+        render view: '/topic/topic',model: [topic: topic]
     }
 
     def createTopic(TopicCo topicCo){
+        println params
+        println topicCo.visibility
         UserCO userCO= new UserCO()
-        def obj = topicService.createTopic(topicCo,session.user)
+        Topic obj = topicService.createTopic(topicCo,session.user)
+        println "${obj.visibility} ---- ${obj.id}-----${obj.name}"
         render view: 'topic', model: [topic:obj]
     }
 
@@ -120,7 +126,7 @@ class TopicController {
 @Validateable
 class TopicCo{
     String name
-    enum visibility{Public,Private}
+    Visibility visibility
 
     static constraints = {
         name unique: true

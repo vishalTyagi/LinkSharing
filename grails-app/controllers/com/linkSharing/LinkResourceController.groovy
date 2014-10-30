@@ -5,7 +5,7 @@ import grails.validation.Validateable
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+@Transactional
 class LinkResourceController {
 
     def linkResourceService
@@ -14,9 +14,15 @@ class LinkResourceController {
 
     //=======================================================================================
 
-    def createLinkResource(LinkResourceCO linkResourceCO,String topic){
-        def obj = linkResourceService.createLinkResource(linkResourceCO,topic,session.user)
-        render "Link created"
+    def createLinkResource(LinkResourceCO linkResourceCO,String topics){
+        println params
+        def obj = linkResourceService.createLinkResource(linkResourceCO,topics,session.user)
+        if(obj){
+            println "${obj.url} >>>> ${obj.id}"
+            render "Link created"
+        }else{
+            render "wrong"
+        }
     }
     //==================================================================================
 
@@ -115,7 +121,9 @@ class LinkResourceController {
 @Validateable
 class LinkResourceCO{
     String url
+    String description
     static constraints = {
         url url: true, nullable: false
+        description size: 0..1024
     }
 }
